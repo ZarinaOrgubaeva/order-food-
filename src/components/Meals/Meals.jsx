@@ -31,7 +31,7 @@ const Dummy_Meals = [
 export const Meals = () => {
   return <Card>
     {Dummy_Meals.map((meal)=>{
-        return <MealItem title={meal.title}
+        return <MealItem key={meal.id} title={meal.title}
         description={meal.description}
         price={meal.price}
         id={meal.id}/>
