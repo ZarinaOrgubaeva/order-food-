@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const Button = ({ children, variant = "contained", boderStyle=" rounded" }) => {
-  return <StyledButton variant={variant} boderStyle={boderStyle}>{children}</StyledButton>;
+const Button = ({ children, variant = "contained", boderStyle=" rounded", ...restProps}) => {
+  return <StyledButton variant={variant} boderStyle={boderStyle} {...restProps}>{children}</StyledButton>;
 };
 const getBackgruondColor = (props)=>{
   return props.variant === "contained" ? '#8a2b06' : "#fff"

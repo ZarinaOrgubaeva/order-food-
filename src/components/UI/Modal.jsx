@@ -13,10 +13,9 @@ const backdropRoot = document.getElementById("backdrop");
 const modalOverlayRoot = document.getElementById("modalOverlay");
 
 export const Modal = ({ children, onClose }) => {
-    console.log(children)
   return (
     <>
-      {createPortal(<BackDrop onClose={onClose}/>, backdropRoot)},
+      {createPortal(<BackDrop onClose={onClose} />, backdropRoot)},
       {createPortal(<ModalContent>{children}</ModalContent>, modalOverlayRoot)}
     </>
   );
@@ -47,13 +46,13 @@ const StyledModalContent = styled.div`
   left: calc(50% - 20rem);
 
   @keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-3rem);
+    from {
+      opacity: 0;
+      transform: translateY(-3rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 `;

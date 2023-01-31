@@ -2,7 +2,13 @@ import styled from "styled-components";
 import Button from "../UI/Button";
 import { ReactComponent as PlusSgv } from "../assets/icons/plus.svg";
 import { ReactComponent as MinusSvg } from "../assets/icons/minus.svg";
-export const BasketItem = ({ title, price, amount }) => {
+export const BasketItem = ({
+  title,
+  price,
+  amount,
+  counterMinus,
+  counterPluz,
+}) => {
   return (
     <Container>
       <Title>{title}</Title>
@@ -12,10 +18,18 @@ export const BasketItem = ({ title, price, amount }) => {
           <Amount>X{amount}</Amount>
         </PriceAndAmountContainer>
         <CounterContainer>
-          <Button borderStyle="sqaured" variant="outLined">
+          <Button
+            borderStyle="sqaured"
+            variant="outLined"
+            onClick={counterMinus}
+          >
             <MinusSvg />
           </Button>
-          <Button borderStyle="sqaured" variant="outLined">
+          <Button
+            borderStyle="sqaured"
+            variant="outLined"
+            onClick={counterPluz}
+          >
             <PlusSgv />
           </Button>
         </CounterContainer>
@@ -27,6 +41,7 @@ export const BasketItem = ({ title, price, amount }) => {
 const Container = styled.div`
   padding: 24px 0;
   width: 100%;
+  border-bottom: 1px solid #d6d6d6;
 `;
 const Title = styled.p`
   font-weight: 600;
@@ -68,4 +83,5 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-right: 30px;
 `;

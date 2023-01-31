@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { ReactComponent as BasketIcon } from "../../assets/icons/Basket-icon.svg";
-const BasketBtn = ({ count}) => {
+const BasketBtn = ({ count, ...restProps }) => {
   return (
-    <StyledButton>
+    <StyledButton {...restProps}>
       <BasketIcon />
       <StyledSpan>Your Card </StyledSpan>
       <StyledCount id="counter">{count || 0}</StyledCount>
@@ -28,8 +28,27 @@ const StyledButton = styled.button`
   &:hover > #counter {
     background-color: #a73a0b;
   }
+  &.bump {
+    animation: bump 300ms ease-out;
+  }
 
-
+  @keyframes bump {
+    0% {
+      transform: scale(1);
+    }
+    10% {
+      transform: scale(0.9);
+    }
+    30% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 const StyledSpan = styled.span`
   margin-left: 12px;

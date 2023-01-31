@@ -1,11 +1,35 @@
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { BasketContext } from "../../store/BasketContext";
 import BasketBtn from "./Basket/HeaderBtn";
-export const Header = () => {
+export const Header = ({ onShowBasket }) => {
+  const { items } = useContext(BasketContext);
+  const [animationClass, setAnimationClass] = useState();
+
+  const calculateTotalAmount = () => {
+    const sum = items.reduce((summa, item) => {
+      return summa + item.amount;
+    }, 0);
+    return sum;
+  };
+  useEffect(() => {
+    setAnimationClass("bump");
+    const id = setTimeout(() => {
+      setAnimationClass(" ");
+    }, 300);
+    return () => {
+      clearTimeout(id);
+    };
+  }, [items]);
+
   return (
     <Container>
       <Logo>ReactMeals</Logo>
-      <BasketBtn>
-     </BasketBtn>
+      <BasketBtn
+        className={animationClass}
+        onClick={onShowBasket}
+        count={calculateTotalAmount()}
+      ></BasketBtn>
     </Container>
   );
 };
@@ -30,4 +54,3 @@ const Logo = styled.p`
   color: #ffffff;
   margin: 0;
 `;
-

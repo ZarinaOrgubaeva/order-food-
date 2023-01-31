@@ -1,6 +1,9 @@
+
 import styled from "styled-components";
 import { MealItemForm } from "./MealItemForm.jsx/MealItemForm";
 export const MealItem = ({ title, description, price, id }) => {
+ 
+  
   return (
     <StyledItem>
       <StyledItemInfo>
@@ -8,7 +11,7 @@ export const MealItem = ({ title, description, price, id }) => {
         <StyledText>{description}</StyledText>
         <span>${price}</span>
       </StyledItemInfo>
-      <MealItemForm id={id}/>
+      <MealItemForm id={id} title={title} price={price}/>
     </StyledItem>
   );
 };

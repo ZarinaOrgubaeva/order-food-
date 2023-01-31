@@ -1,43 +1,36 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { BasketContext } from "../../store/BasketContext";
 import { Modal } from "../UI/Modal";
 import { BasketItem } from "./BasketItem";
 import { TotalAmount } from "./TotalAmount";
-export const Basket = () => {
-  const items = [
-    {
-      id: "meal",
-      title: "Sushi",
-      price: 22.99,
-      amount: 1,
-    },
-    {
-      id: "meal2",
-      title: "Schnitzel",
-      amount: 1,
-      price: 16.0,
-    },
-    {
-      id: "meal3",
-      title: "Barbecue Burger",
-      amount: 1,
-      price: 12.99,
-    },
-    {
-      id: "meal4",
-      title: "Green Bowl",
-      amount: 1,
-      price: 19.99,
-    },
-  ];
+export const Basket = ({ onClose }) => {
+  const { items, updateBasketItem, deleteBasketItem} = useContext(BasketContext);
+  const counterPluz = (id, amount) => {
+    updateBasketItem({ amount: amount + 1, id });
+  };
+  const counterMinus = (id, amount) => {
+    if (amount > 1) {
+      updateBasketItem({ amount: amount - 1, id });
+    }else{
+      deleteBasketItem(id)
+    }
+    
+  };
+  const getTotalPrice = () => {
+    return items.reduce((sum, { price, amount }) => sum + amount * price, 0);
+  };
   return (
-    <Modal onClose={() => {}}>
+    <Modal>
       <Content>
         {items.length ? (
           <FixedHeightContainer>
             {items.map((item) => {
               return (
                 <BasketItem
-                  key={item.amount}
+                  key={item._id}
+                  counterPluz={() => counterPluz(item._id, item.amount)}
+                  counterMinus={() => counterMinus(item._id, item.amount)}
                   title={item.title}
                   price={item.price}
                   amount={item.amount}
@@ -46,7 +39,11 @@ export const Basket = () => {
             })}
           </FixedHeightContainer>
         ) : null}
-        <TotalAmount price={200.5034} onClose={() => {}} onOrder={() => {}} />
+        <TotalAmount
+          price={getTotalPrice()}
+          onClose={onClose}
+          onOrder={() => {}}
+        />
       </Content>
     </Modal>
   );

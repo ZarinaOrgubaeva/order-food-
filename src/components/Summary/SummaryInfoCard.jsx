@@ -40,13 +40,4 @@ const StyledtagH2 = styled.h2`
   color: #ffffff;
   margin-bottom: 28px;
 `;
-// const StyledtagsP = styled.p`
-//   padding-left: 54px;
-//   padding-right: 54px;
-//   font-weight: 500;
-//   font-size: 16px;
-//   line-height: 24px;
-//   text-align: center;
-//   color: #ffffff;
-// `;
 export default SummaryInfoCard;
