@@ -4,28 +4,26 @@ import { Meals } from "./components/Meals/Meals";
 import { Basket } from "./components/Basket/Basket";
 import styled from "styled-components";
 import { useState } from "react";
-import { BasketProvaider } from "./store/BasketContext";
-
+import { Provider } from "react-redux";
+import { store } from "./store";
 function App() {
   const [isBasketVisible, setBasketVisible] = useState(false);
   const showBasketHandler = () => {
     setBasketVisible((prevState) => !prevState);
   };
-  
   return (
-      <BasketProvaider>
-        <Header onShowBasket={showBasketHandler} />
-        <Content>
-          <Summary />
-          <Meals />
-          {isBasketVisible && <Basket onClose={showBasketHandler} />}
-        </Content>
-      </BasketProvaider>
+    <Provider store={store}>
+      <Header onShowBasket={showBasketHandler} />
+      <Content>
+        <Summary />
+        <Meals />
+        {isBasketVisible && <Basket onClose={showBasketHandler} />}
+      </Content>
+    </Provider>
   );
 }
 
 export default App;
-
 const Content = styled.div`
   margin-top: 101px;
 `;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "../UI/Button";
 export const TotalAmount = ({ price, onClose, onOrder }) => {
+  console.log("TOtalamount");
  const orderButton = price > 0 ? <Button onClick={onOrder}>Order</Button> : null;
    const  fixedPrice=price.toFixed(2)
  return (

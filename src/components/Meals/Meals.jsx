@@ -1,53 +1,16 @@
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MealItem } from "./meal-item/MealItem";
 import { fetchApi } from "../../lib/fetchApi";
-// const Dummy_Meals = [
-//   {
-//     id: "meal",
-//     title: "Sushi",
-//     description: "Finest fish and veggies",
-//     price: 22.99,
-//   },
-//   {
-//     id: "meal2",
-//     title: "Schnitzel",
-//     description: "A german specialty!",
-//     price: 16.0,
-//   },
-//   {
-//     id: "meal3",
-//     title: "Barbecue Burger",
-//     description: "American, raw, meaty",
-//     price: 12.99,
-//   },
-//   {
-//     id: "meal4",
-//     title: "Green Bowl",
-//     description: "Healthy...and green...",
-//     price: 19.99,
-//   },
-// ]
-
+import { useDispatch, useSelector } from "react-redux";
+import { getMeals, mealsActionsTypes } from "../../store/meals/mealsReducer";
 export const Meals = () => {
-  const [meals, setMeals] = useState([]);
-  const [error, setError] = useState('');
-  const [isLoading,setLoading]=useState(true)
-  const getMeals = async () => {
-    try {
-      setLoading(true)
-      const resopse = await fetchApi("foods");
-      console.log(resopse);
-      setMeals(resopse.data);
-      setLoading(false)
-    } catch (error) {
-      console.log(error);
-      setError("Failed to load meals");
-    }
-  };
+  const dispatch = useDispatch();
+  const { meals, isLoading, error } = useSelector((state) => state.meals);
   useEffect(() => {
-    getMeals();
-  }, []);
+   dispatch({type: mealsActionsTypes.GET_MEALS_STARTED})
+   dispatch(getMeals())
+  }, [dispatch]);
   return (
     <Card>
       {isLoading && !error && <p>Loading...</p>}
@@ -55,17 +18,18 @@ export const Meals = () => {
       {meals.map((meal) => {
         return (
           <MealItem
-          key={meal.id}
+            key={meal._id}
             title={meal.title}
             description={meal.description}
             price={meal.price}
             id={meal._id}
           />
-      );
+        );
       })}
     </Card>
   );
 };
+memo(Meals);
 const Card = styled.ul`
   background: #ffffff;
   border-radius: 16px;

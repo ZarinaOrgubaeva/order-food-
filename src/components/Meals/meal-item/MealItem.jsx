@@ -1,9 +1,8 @@
 
+import { memo } from "react";
 import styled from "styled-components";
 import { MealItemForm } from "./MealItemForm.jsx/MealItemForm";
 export const MealItem = ({ title, description, price, id }) => {
- 
-  
   return (
     <StyledItem>
       <StyledItemInfo>
@@ -15,7 +14,7 @@ export const MealItem = ({ title, description, price, id }) => {
     </StyledItem>
   );
 };
-
+memo(MealItem)
 const StyledItem = styled.li`
   list-style: none;
   display: flex;
